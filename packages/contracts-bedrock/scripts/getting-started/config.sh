@@ -25,14 +25,15 @@ timestamp=$(echo "$block" | awk '/timestamp/ { print $2 }')
 blockhash=$(echo "$block" | awk '/hash/ { print $2 }')
 
 # Generate the config file
-config=$(cat << EOL
+config=$(
+  cat <<EOL
 {
   "finalSystemOwner": "$GS_ADMIN_ADDRESS",
   "portalGuardian": "$GS_ADMIN_ADDRESS",
 
   "l1StartingBlockTag": "$blockhash",
 
-  "l1ChainID": 11155111,
+  "l1ChainID": 5,
   "l2ChainID": 42069,
   "l2BlockTime": 2,
   "l1BlockTime": 12,
@@ -42,7 +43,7 @@ config=$(cat << EOL
   "channelTimeout": 300,
 
   "p2pSequencerAddress": "$GS_SEQUENCER_ADDRESS",
-  "batchInboxAddress": "0xff00000000000000000000000000000000042069",
+  "batchInboxAddress": "0xff00000000000000000000000000000000000420",
   "batchSenderAddress": "$GS_BATCHER_ADDRESS",
 
   "l2OutputOracleSubmissionInterval": 120,
@@ -70,11 +71,11 @@ config=$(cat << EOL
   "gasPriceOracleScalar": 1000000,
 
   "enableGovernance": true,
-  "governanceTokenSymbol": "OP",
-  "governanceTokenName": "Optimism",
+  "governanceTokenSymbol": "PRX",
+  "governanceTokenName": "ParaX",
   "governanceTokenOwner": "$GS_ADMIN_ADDRESS",
 
-  "l2GenesisBlockGasLimit": "0x1c9c380",
+  "l2GenesisBlockGasLimit": "0x2faf080",
   "l2GenesisBlockBaseFeePerGas": "0x3b9aca00",
   "l2GenesisRegolithTimeOffset": "0x0",
 
@@ -82,13 +83,13 @@ config=$(cat << EOL
   "eip1559DenominatorCanyon": 250,
   "eip1559Elasticity": 10,
 
-  "systemConfigStartBlock": 0,
+  "systemConfigStartBlock": 8300214,
 
-  "requiredProtocolVersion": "0x0000000000000000000000000000000000000000000000000000000000000000",
-  "recommendedProtocolVersion": "0x0000000000000000000000000000000000000000000000000000000000000000"
+  "requiredProtocolVersion": "0x0000000000000000000000000000000000000003000000010000000000000000",
+  "recommendedProtocolVersion": "0x0000000000000000000000000000000000000003000000010000000000000000"
 }
 EOL
 )
 
 # Write the config file
-echo "$config" > deploy-config/getting-started.json
+echo "$config" >deploy-config/getting-started.json
